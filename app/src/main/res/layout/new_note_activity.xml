@@ -16,7 +16,8 @@
         android:ems="10"
         android:hint="Title"
         android:inputType="textPersonName"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textSize="18sp" />
 
     <View
         android:id="@+id/divider2"
