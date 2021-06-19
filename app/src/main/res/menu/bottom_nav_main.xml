@@ -6,10 +6,6 @@
         android:icon="@drawable/ic_baseline_notes_24"
         android:title="Notes" />
     <item
-        android:id="@+id/shared_item"
-        android:icon="@drawable/ic_baseline_folder_shared_24"
-        android:title="Shared" />
-    <item
         android:id="@+id/favorites_item"
         android:icon="@drawable/ic_baseline_favorite_24"
         android:title="Favorites" />
@@ -17,4 +13,8 @@
         android:id="@+id/friends_item"
         android:icon="@drawable/ic_baseline_people_24"
         android:title="Friends" />
+    <item
+        android:id="@+id/notif_item"
+        android:icon="@drawable/ic_baseline_notifications_24"
+        android:title="Notifications" />
 </menu>

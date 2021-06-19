@@ -31,6 +31,7 @@ import com.silentdev.notesharing.ui.account.Account;
 import com.silentdev.notesharing.ui.favorites.FavoritesFragment;
 import com.silentdev.notesharing.ui.friends.FriendsFragment;
 import com.silentdev.notesharing.ui.notes.NotesFragment;
+import com.silentdev.notesharing.ui.notifications.NotificationsFragment;
 import com.silentdev.notesharing.ui.shared.SharedFragment;
 import com.squareup.picasso.Picasso;
 
@@ -112,11 +113,6 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
                 fragment = new NotesFragment();
                 break;
 
-            case R.id.shared_item:
-                barTitle.setText("Shared Notes");
-                fragment = new SharedFragment();
-                break;
-
             case R.id.favorites_item:
                 barTitle.setText("Favorites");
                 fragment = new FavoritesFragment();
@@ -125,6 +121,11 @@ public class Main extends AppCompatActivity implements BottomNavigationView.OnNa
             case R.id.friends_item:
                 barTitle.setText("Friends");
                 fragment = new FriendsFragment();
+                break;
+
+            case R.id.notif_item:
+                barTitle.setText("Notifications");
+                fragment = new NotificationsFragment();
                 break;
 
         }
