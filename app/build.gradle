@@ -47,10 +47,11 @@ dependencies {
     // Circle image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    // PIcasso
+    // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Rich text editor
     implementation 'jp.wasabeef:richeditor-android:2.0.0'
+    implementation 'com.commonsware.cwac:richedit:0.5.3'
 
 }
