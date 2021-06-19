@@ -113,7 +113,7 @@ public class NotesFragment extends Fragment {
     }
 
     private void showNotes() {
-        Query query = db.collection("notes").whereEqualTo("userId", mAuth.getCurrentUser().getUid());
+        Query query = db.collection("notes").whereEqualTo("userId", mAuth.getCurrentUser().getUid()).orderBy("date_added", Query.Direction.DESCENDING);
 
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -167,9 +167,9 @@ public class NotesFragment extends Fragment {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        /*Intent intent = new Intent(getContext(), ApartmentView.class);
-                        intent.putExtra("id", propertyId);
-                        startActivity(intent);*/
+                        Intent intent = new Intent(getContext(), ViewNote.class);
+                        intent.putExtra("id", noteId);
+                        startActivity(intent);
                         //Toast.makeText(getContext(), propertyId, Toast.LENGTH_SHORT).show();
                     }
                 });

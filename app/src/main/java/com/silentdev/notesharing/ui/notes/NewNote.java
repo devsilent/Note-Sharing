@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,6 +34,7 @@ public class NewNote extends AppCompatActivity {
     String body = "";
     FirebaseFirestore db;
     FirebaseAuth mAuth;
+    HorizontalScrollView hMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,9 @@ public class NewNote extends AppCompatActivity {
         // Layouts
         editTitle = findViewById(R.id.titleEdit);
         mEditor = (RichEditor) findViewById(R.id.editor);
+        hMenu = findViewById(R.id.horizontal_menu);
+
+        hMenu.setVisibility(View.GONE);
 
         // Editor config
         mEditor.setPadding(10, 10, 10, 10);
@@ -58,6 +64,22 @@ public class NewNote extends AppCompatActivity {
             public void onTextChange(String text) {
                 Log.d("TEXT", text);
                 body = text;
+            }
+        });
+
+        editTitle.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                hMenu.setVisibility(View.GONE);
+                return false;
+            }
+        });
+
+        mEditor.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                hMenu.setVisibility(View.VISIBLE);
+                return false;
             }
         });
 
@@ -156,13 +178,6 @@ public class NewNote extends AppCompatActivity {
                 mEditor.setNumbers();
             }
         });
-
-        findViewById(R.id.action_insert_checkbox).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mEditor.insertTodo();
-            }
-        });
     }
 
     private void saveToDb(String body) {
@@ -184,7 +199,7 @@ public class NewNote extends AppCompatActivity {
         db.collection("notes").add(note).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
-                Toast.makeText(getApplicationContext(),"Note Added!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Note saved!", Toast.LENGTH_SHORT).show();
                 finish();
                 progressDialog.dismiss();
             }
@@ -205,7 +220,12 @@ public class NewNote extends AppCompatActivity {
                 this.finish();
                 return true;
             case R.id.save_item:
-                saveToDb(body);
+                String title = editTitle.getText().toString();
+                if (title.equals("") && body.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Please input something on your note", Toast.LENGTH_SHORT).show();
+                } else {
+                    saveToDb(body);
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
