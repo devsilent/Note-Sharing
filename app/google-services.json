@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "811609862631",
+    "project_id": "notesharing-404fe",
+    "storage_bucket": "notesharing-404fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:811609862631:android:b6f1a56b9d41965094cd42",
+        "android_client_info": {
+          "package_name": "com.silentdev.notesharing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "811609862631-52lf3ddc0j9mj4ctsgitmofmnq3fvk3o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.silentdev.notesharing",
+            "certificate_hash": "45d76d569722827515af3192162ccfc35ff7eef6"
+          }
+        },
+        {
+          "client_id": "811609862631-f3g0t2f0k0mtnu4keikcv5empprpj8eq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIUjnLtVIsiBAc4eoHT-oqJFtCmkPsDQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "811609862631-f3g0t2f0k0mtnu4keikcv5empprpj8eq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
