@@ -3,16 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/undo_item"
-        android:icon="@drawable/ic_baseline_undo_24"
-        android:title="Undo"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/redo_item"
-        android:icon="@drawable/ic_baseline_redo_24"
-        android:title="Redo"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/save_item"
         android:icon="@drawable/ic_baseline_save_24"
         android:title="Save"

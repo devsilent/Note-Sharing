@@ -204,12 +204,6 @@ public class NewNote extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
-            case R.id.undo_item:
-                Toast.makeText(getApplicationContext(), "Undo", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.redo_item:
-                Toast.makeText(getApplicationContext(), "Redo", Toast.LENGTH_SHORT).show();
-                return true;
             case R.id.save_item:
                 saveToDb(body);
                 return true;

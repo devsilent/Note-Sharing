@@ -16,8 +16,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:paddingBottom="15dp"
+            android:clipToPadding="false"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

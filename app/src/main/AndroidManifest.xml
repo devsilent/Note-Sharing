@@ -11,13 +11,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.notes.NewNote" android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".ui.notes.ViewNote"></activity>
+        <activity
+            android:name=".ui.notes.NewNote"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ui.account.Account" />
         <activity android:name=".ui.Main" />
         <activity
             android:name=".ui.Login"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".ui.SplashScreen" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+            android:name=".ui.SplashScreen"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
