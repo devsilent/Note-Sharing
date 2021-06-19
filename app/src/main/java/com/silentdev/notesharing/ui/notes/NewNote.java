@@ -2,24 +2,17 @@ package com.silentdev.notesharing.ui.notes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.app.ProgressDialog;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -34,10 +27,8 @@ import jp.wasabeef.richeditor.RichEditor;
 
 public class NewNote extends AppCompatActivity {
 
-    RichEditor editor;
-    LinearLayout layoutFormat;
     EditText editTitle;
-    ImageView imgBold, imgItalic, imgUnderline, imgBullet;
+    RichEditor mEditor;
     String body = "";
     FirebaseFirestore db;
     FirebaseAuth mAuth;
@@ -55,61 +46,123 @@ public class NewNote extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // Layouts
-        editor = findViewById(R.id.editor);
-        layoutFormat = findViewById(R.id.formatLayout);
         editTitle = findViewById(R.id.titleEdit);
-        imgBold = findViewById(R.id.boldImg);
-        imgItalic = findViewById(R.id.italicImg);
-        imgUnderline = findViewById(R.id.underlineImg);
-        imgBullet = findViewById(R.id.bulletImg);
+        mEditor = (RichEditor) findViewById(R.id.editor);
 
-        layoutFormat.setVisibility(View.GONE);
+        // Editor config
+        mEditor.setPadding(10, 10, 10, 10);
+        mEditor.setPlaceholder("Insert text here...");
 
-        // Editor settings
-        editor.setPadding(10, 10, 10, 10);
-        editor.setPlaceholder("Enter your note here...");
-
-        editor. setOnTextChangeListener(new RichEditor.OnTextChangeListener() {
+        mEditor.setOnTextChangeListener(new RichEditor.OnTextChangeListener() {
             @Override
             public void onTextChange(String text) {
-                // Do Something
+                Log.d("TEXT", text);
                 body = text;
-                Log.d("RichEditor", "Preview " + body);
             }
         });
 
-        // Hide format layout when touched
-        formatHide();
+        buttons();
 
-        // Format clicks
-        imgBold.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void buttons() {
+        findViewById(R.id.action_undo).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                editor.setBold();
+            public void onClick(View v) {
+                mEditor.undo();
             }
         });
 
-        imgItalic.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.action_redo).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                editor.setItalic();
+            public void onClick(View v) {
+                mEditor.redo();
             }
         });
 
-        imgUnderline.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.action_bold).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                editor.setUnderline();
+            public void onClick(View v) {
+                mEditor.setBold();
             }
         });
 
-        imgBullet.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.action_italic).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                editor.setBullets();
+            public void onClick(View v) {
+                mEditor.setItalic();
             }
         });
 
+        findViewById(R.id.action_strikethrough).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEditor.setStrikeThrough();
+            }
+        });
+
+        findViewById(R.id.action_underline).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEditor.setUnderline();
+            }
+        });
+
+        findViewById(R.id.action_indent).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEditor.setIndent();
+            }
+        });
+
+        findViewById(R.id.action_outdent).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEditor.setOutdent();
+            }
+        });
+
+        findViewById(R.id.action_align_left).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEditor.setAlignLeft();
+            }
+        });
+
+        findViewById(R.id.action_align_center).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEditor.setAlignCenter();
+            }
+        });
+
+        findViewById(R.id.action_align_right).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEditor.setAlignRight();
+            }
+        });
+
+        findViewById(R.id.action_insert_bullets).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEditor.setBullets();
+            }
+        });
+
+        findViewById(R.id.action_insert_numbers).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEditor.setNumbers();
+            }
+        });
+
+        findViewById(R.id.action_insert_checkbox).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEditor.insertTodo();
+            }
+        });
     }
 
     private void saveToDb(String body) {
@@ -139,24 +192,6 @@ public class NewNote extends AppCompatActivity {
 
     }
 
-    private void formatHide() {
-        editTitle.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                layoutFormat.setVisibility(View.GONE);
-                return false;
-            }
-        });
-
-        editor.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                layoutFormat.setVisibility(View.VISIBLE);
-                return false;
-            }
-        });
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.new_note_menu, menu);
@@ -170,10 +205,10 @@ public class NewNote extends AppCompatActivity {
                 this.finish();
                 return true;
             case R.id.undo_item:
-                editor.undo();
+                Toast.makeText(getApplicationContext(), "Undo", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.redo_item:
-                editor.redo();
+                Toast.makeText(getApplicationContext(), "Redo", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.save_item:
                 saveToDb(body);
